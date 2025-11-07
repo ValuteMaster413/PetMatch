@@ -10,14 +10,7 @@ class CreatePetHandler(AbstractCommandHandler[CreatePetCommand]):
         self._repository = repository
 
     def handle(self, command: CreatePetCommand) -> Result[None]:
-
-        pet = Pet(
-            id=self._repository.next_id(),
-            name=command.name,
-            species=command.species
-        )
-
-        pet_creation_result = self._repository.add(pet)
+        pet_creation_result = self._repository.add(command.name, species=command.species)
 
         if pet_creation_result.failure:
             return Result.fail(pet_creation_result.error)
