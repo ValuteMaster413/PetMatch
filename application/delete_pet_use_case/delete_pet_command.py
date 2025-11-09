@@ -4,7 +4,5 @@ from core.application.common.abstractions.messaging.abstract_command import Abst
 
 
 @dataclass
-class CreatePetCommand(AbstractCommand):
-    name: str
-    species: str
-
+class DeletePetCommand(AbstractCommand):
+    pet_name: str
