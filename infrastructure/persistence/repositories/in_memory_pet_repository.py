@@ -1,6 +1,7 @@
 from typing import Iterable
 
 from application.common.abstractions.persistence.pet_repository import IPetRepository
+from core.domain.shared.errors.error import Error
 from domain.shared.abstraction.pet import Pet
 
 from core.domain.shared.result import Result
@@ -27,22 +28,27 @@ class PetRepository(IPetRepository):
 
         return Result.ok(None)
 
-    def edit(self, pet_id: PetUID, new_pet_name: str, new_pet_species: str) -> Result[Pet]:
-        pet = self._storage.get(pet_id)
+    #def edit(self, new_pet_name: str, new_pet_species: str) -> Result[Pet]:
+        # pet = self._storage.get(pet_id)
+        #
+        # if pet is None:
+        #     return Result.fail(Error.NotFound("500", f"Pet {str(pet_id)} not found", ))
+        #
+        # pet.name = new_pet_name
+        # pet.species = new_pet_species
+        #
+        # self._storage[pet_id] = pet
+        #
+        # return Result.ok(pet)
 
-        pet.name = new_pet_name
-        pet.species = new_pet_species
-
-        self._storage[pet_id] = pet
-
-        return Result.ok(pet)
 
     def delete(self, pet_name: str) -> Result[None]:
         for pid, pet in list(self._storage.items()):
             if pet.name == pet_name:
                 del self._storage[pid]
+                return Result.ok(None)
 
-        return Result.ok(None)
+        return Result.fail(Error.Failure("500", f"Pet {pet_name} not deleted", ))
 
     def get_by_id(self, pet_id: PetUID) -> Result[Pet]:
         pet = self._storage[pet_id]

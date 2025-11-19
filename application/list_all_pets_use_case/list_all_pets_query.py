@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from core.application.common.abstractions.messaging.abstract_command import AbstractCommand
+from core.application.common.abstractions.messaging.abstract_query import AbstractQuery
 
 
 @dataclass
-class ListAllPetsCommand(AbstractCommand):
+class ListAllPetsQuery(AbstractQuery):
     pass

@@ -14,7 +14,7 @@ class CreatePetHandler(AbstractCommandHandler[CreatePetCommand]):
         if pet_creation_result.failure:
             return Result.fail(pet_creation_result.error)
 
-        return Result.ok(None)
+        return Result.ok(pet_creation_result.content)
 
 
 

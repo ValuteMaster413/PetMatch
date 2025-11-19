@@ -10,8 +10,7 @@ class EditPetHandler(AbstractCommandHandler[EditPetCommand]):
         self._repository = repository
 
     def handle(self, command: EditPetCommand) -> Result[None]:
-        pet_id = PetUID.create(command.pet_id).content
-        pet_edition_result = self._repository.edit(pet_id, command.new_pet_name, command.new_pet_species)
+        pet_edition_result = self._repository.edit(command.old_pet_name, command.new_pet_name, command.new_pet_species)
 
         if pet_edition_result.failure:
             return Result.fail(pet_edition_result.error)

@@ -9,7 +9,7 @@ class IPetRepository(ABC):
     def add(self, name: str, species) -> None:
         ...
 
-    def edit(self, pet_id: PetUID, new_pet_name: str, new_pet_species: str) -> Optional[Pet]:
+    def edit(self, old_pet_name:str, new_pet_name: str, new_pet_species: str) -> Optional[Pet]:
         ...
 
     def delete(self,  pet_name: str) -> Optional[Pet]:
